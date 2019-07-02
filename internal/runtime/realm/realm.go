@@ -1,6 +1,8 @@
 package realm
 
 import (
+	"sync/atomic"
+
 	"github.com/gojisvm/gojis/internal/runtime/binding"
 	"github.com/gojisvm/gojis/internal/runtime/errors"
 	"github.com/gojisvm/gojis/internal/runtime/lang"
@@ -12,6 +14,13 @@ const (
 	IntrinsicNameThrowTypeError    = "ThrowTypeError"
 )
 
+var (
+	currentRealm atomic.Value // holds *realm.Realm
+)
+
+// CurrentRealm returns the current realm as used in the specification.
+func CurrentRealm() *Realm { return currentRealm.Load().(*Realm) }
+
 type Realm struct {
 	Intrinsics  *lang.Record
 	GlobalObj   lang.Value                   // Object or Undefined
@@ -19,6 +28,12 @@ type Realm struct {
 	TemplateMap map[interface{}]*lang.Object // Parse Node -> Object
 	HostDefined lang.Value
 }
+
+// Type returns lang.TypeInternal.
+func (*Realm) Type() lang.Type { return lang.TypeInternal }
+
+// Value returns the Realm itself.
+func (r *Realm) Value() interface{} { return r }
 
 func CreateRealm() *Realm {
 	r := new(Realm)

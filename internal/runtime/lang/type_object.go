@@ -15,10 +15,12 @@ type Object struct {
 	fields map[StringOrSymbol]*Property
 	slots  map[StringOrSymbol]Value
 
-	prototype  Value // *Object or Null
-	extensible bool
+	Prototype  Value // *Object or Null
+	Extensible bool
 
 	// Function Object
+	Realm          InternalValue
+	ScriptOrModule interface{}
 
 	// Call is the Call function of an object as (kind of)
 	// specified by the language spec.
@@ -46,8 +48,8 @@ func ObjectCreate(proto Value, internalSlotsList ...StringOrSymbol) *Object {
 		obj.slots[slot] = Undefined
 	}
 	EnsureTypeOneOf(proto, TypeObject, TypeNull) // panic if proto is not TypeObject or TypeNull
-	obj.prototype = proto
-	obj.extensible = true
+	obj.Prototype = proto
+	obj.Extensible = true
 
 	return obj
 }
@@ -69,7 +71,7 @@ func (o *Object) GetPrototypeOf() Value {
 }
 
 func (o *Object) OrdinaryGetPrototypeOf() Value {
-	return o.prototype
+	return o.Prototype
 }
 
 func (o *Object) SetPrototypeOf(v Value) Boolean {
@@ -81,8 +83,8 @@ func (o *Object) OrdinarySetPrototypeOf(v Value) Boolean {
 		panic(fmt.Sprintf("Type of prototype object must be Object or Null, cannot be %v", t))
 	}
 
-	extensible := o.extensible
-	current := o.prototype
+	extensible := o.Extensible
+	current := o.Prototype
 
 	if SameValue(v, current) {
 		return True
@@ -108,12 +110,12 @@ func (o *Object) OrdinarySetPrototypeOf(v Value) Boolean {
 			// FIXME: if p.GetPrototypeOf is not the ordinary object internal method defined in 9.1.1,
 			// set done to true.
 			// else {
-			p = p.(*Object).prototype // this type assertion cannot fail, since p is checked to be Object or Null, and Null is handled above
+			p = p.(*Object).Prototype // this type assertion cannot fail, since p is checked to be Object or Null, and Null is handled above
 			// }
 		}
 	}
 
-	o.prototype = v
+	o.Prototype = v
 	return True
 }
 
@@ -122,7 +124,7 @@ func (o *Object) IsExtensible() Boolean {
 }
 
 func (o *Object) OrdinaryIsExtensible() Boolean {
-	return Boolean(o.extensible)
+	return Boolean(o.Extensible)
 }
 
 func (o *Object) PreventExtensions() Boolean {
@@ -130,7 +132,7 @@ func (o *Object) PreventExtensions() Boolean {
 }
 
 func (o *Object) OrdinaryPreventExtensions() Boolean {
-	o.extensible = false
+	o.Extensible = false
 	return True
 }
 
@@ -165,7 +167,7 @@ func (o *Object) DefineOwnProperty(p StringOrSymbol, desc *Property) Boolean {
 
 func (o *Object) OrdinaryDefineOwnProperty(p StringOrSymbol, desc *Property) Boolean {
 	current := o.GetOwnProperty(p)
-	extensible := o.extensible
+	extensible := o.Extensible
 	return o.ValidateAndApplyPropertyDescriptor(p, extensible, desc, current)
 }
 
