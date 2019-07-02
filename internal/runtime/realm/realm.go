@@ -28,7 +28,10 @@ type Realm struct {
 	HostDefined lang.Value
 }
 
-func (*Realm) Type() lang.Type      { return lang.TypeInternal }
+// Type returns lang.TypeInternal.
+func (*Realm) Type() lang.Type { return lang.TypeInternal }
+
+// Value returns the Realm itself.
 func (r *Realm) Value() interface{} { return r }
 
 func CreateRealm() *Realm {
