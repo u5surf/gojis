@@ -18,6 +18,7 @@ var (
 	currentRealm atomic.Value // holds *realm.Realm
 )
 
+// CurrentRealm returns the current realm as used in the specification.
 func CurrentRealm() *Realm { return currentRealm.Load().(*Realm) }
 
 type Realm struct {
