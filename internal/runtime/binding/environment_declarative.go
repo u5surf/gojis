@@ -146,6 +146,10 @@ func (e *DeclarativeEnvironment) GetBindingValue(n lang.String, strict bool) (la
 	return b.Value(), nil
 }
 
+// DeleteBinding deletes a binding with the given name if the binding is deletable.
+// If the binding is not deletable, this function returns false.
+// If the binding does not exist or is deletable, this function returns true.
+// DeleteBinding is specified in 8.1.1.1.7.
 func (e *DeclarativeEnvironment) DeleteBinding(n lang.String) bool {
 	b, ok := e.getBinding(n)
 	if !ok {
@@ -160,17 +164,26 @@ func (e *DeclarativeEnvironment) DeleteBinding(n lang.String) bool {
 	return true
 }
 
+// HasThisBinding returns false.
+// HasThisBinding is specified in 8.1.1.1.8.
 func (e *DeclarativeEnvironment) HasThisBinding() bool {
 	return false
 }
 
+// HasSuperBinding returns false.
+// HasSuperBinding is specified in 8.1.1.1.9.
 func (e *DeclarativeEnvironment) HasSuperBinding() bool {
 	return false
 }
 
+// WithBaseObject returns Undefined.
+// WithBaseObject is specified in 8.1.1.1.10.
 func (e *DeclarativeEnvironment) WithBaseObject() lang.Value {
 	return lang.Undefined
 }
 
-func (e *DeclarativeEnvironment) Type() lang.Type    { return lang.TypeInternal }
+// Type returns lang.TypeInternal.
+func (e *DeclarativeEnvironment) Type() lang.Type { return lang.TypeInternal }
+
+// Value returns the declarative environment itself.
 func (e *DeclarativeEnvironment) Value() interface{} { return e }

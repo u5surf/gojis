@@ -5,6 +5,10 @@ import (
 	"github.com/gojisvm/gojis/internal/runtime/lang"
 )
 
+// Environment is an abstraction over the different types of environment
+// records used in the specification.
+// Not all functions are supported by all environments.
+// There is an issue suggesting that this abstraction should be improved (#34).
 type Environment interface {
 	lang.Value
 
