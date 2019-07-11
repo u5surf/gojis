@@ -9,7 +9,14 @@ go:
 go_import_path: github.com/gojisvm/gojis
 
 env:
+  matrix:
   - GO111MODULE=on
+  
+addons:
+  sonarcloud:
+    organization: "gojisvm"
+    token:
+      secure: dvs5HZgiOJ4Bf4CPwqLTYNDZYvhSpEw/+7OPJ8In4n4eXXmBd107op0OqCcwiadv9D92wdAe+dOLi9Ol2/npH/9BnJNgLHuWGZcTje/GjfZd+A0rNQXIicHm+qMjg+cWNTU0BZOIdsjRzVijH+HfgQdwFMjWKbo6H8XwSZfbH/PouN7FGj6dIfALN68iCj7Oxe10FUs0MBysY12WD2kQa3jlyxUfXEUlMhWuWGjTL64JO25YPFv+zXABfhV+HG/G0O3ChfHt9yw40PoxFOb01vRsEnXjduIA2S8/5zm65iPPtHqwch/0hyFtidBs2g++W0FCONAnELGnrQZMlzbG/V6+psgJQPyMLXRDBoIVP6xHGvi6c9Q9dtb8+oDudx8Yad/DDPJaL94FfcVMUaIf0641YTZ5MlKqRkkvX2lA14nmjFI7JJayMk8UTW9+XGbYfewjw2NfVrNrVu+lIc/tFL/pdmkGZtpKBqCdvemD6cG2GUcvnD3n6Kcx7Lah+l76nvV3FfTJZYdQoCpTw1ZfDDzm4PoGLtnabcpKbk3UWyuDBoXeDTqUwhZAaXaJDi9BRnQpPjkojrrIQPpyy1yTisP/Im2aGVUCM4SfXFqpHXLt7qnW9RTimwhMo/JDNN7UEyHfso/EOf3EdpeCBO47eF7/+mkWUXOB97UTrkFm0lM=
 
 matrix:
   # It's ok if our code fails on unstable development versions of Go.
@@ -30,4 +37,5 @@ before_script:
 
 script:
   - gosec -quiet ./... # run vulnerability analysis
+  - sonar-scanner
   - make shorttest # short will be removed when parser is done
