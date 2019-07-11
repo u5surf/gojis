@@ -38,4 +38,4 @@ before_script:
 script:
   - gosec -quiet ./... # run vulnerability analysis
   - sonar-scanner
-  - make shorttest # short will be removed when parser is done
+  - go test -short ./... # short will be removed when parser is done
