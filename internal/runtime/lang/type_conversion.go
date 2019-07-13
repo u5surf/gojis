@@ -139,32 +139,92 @@ func ToInteger(arg Value) (Number, errors.Error) {
 	return NewNumber(math.Floor(val.(float64))), nil
 }
 
-func ToInt32(arg Value) Number {
-	panic("TODO")
+func toInt(arg Value, bits uint) (Number, errors.Error) {
+	uintval, err := toUint(arg, bits)
+	if err != nil {
+		return Zero, err
+	}
+
+	float64val := uintval.Value().(float64)
+	if float64val >= float64(int64(1)<<(bits-1)) {
+		return NewNumber(float64val - float64(int64(1)<<bits)), nil
+	}
+	return uintval, nil
 }
 
-func ToUint32(arg Value) Number {
-	panic("TODO")
+func toUint(arg Value, bits uint) (Number, errors.Error) {
+	number, err := ToNumber(arg)
+	if err != nil {
+		return Zero, err
+	}
+
+	if number == NaN ||
+		number == PosZero || number == NegZero ||
+		number == PosInfinity || number == NegInfinity {
+		return PosZero, nil
+	}
+
+	floatval := number.Value().(float64)
+	intval := int64(floatval)
+	intXXbit := intval % 1 << bits
+	return NewNumber(float64(intXXbit)), nil
 }
 
-func ToInt16(arg Value) Number {
-	panic("TODO")
+func ToInt32(arg Value) (Number, errors.Error) {
+	return toInt(arg, 32)
 }
 
-func ToUint16(arg Value) Number {
-	panic("TODO")
+func ToUint32(arg Value) (Number, errors.Error) {
+	return toUint(arg, 32)
 }
 
-func ToInt8(arg Value) Number {
-	panic("TODO")
+func ToInt16(arg Value) (Number, errors.Error) {
+	return toInt(arg, 16)
 }
 
-func ToUint8(arg Value) Number {
-	panic("TODO")
+func ToUint16(arg Value) (Number, errors.Error) {
+	return toUint(arg, 16)
 }
 
-func ToUint8Clamp(arg Value) Number {
-	panic("TODO")
+func ToInt8(arg Value) (Number, errors.Error) {
+	return toInt(arg, 8)
+}
+
+func ToUint8(arg Value) (Number, errors.Error) {
+	return toUint(arg, 8)
+}
+
+func ToUint8Clamp(arg Value) (Number, errors.Error) {
+	number, err := ToNumber(arg)
+	if err != nil {
+		return Zero, nil
+	}
+
+	if number == NaN {
+		return PosZero, nil
+	}
+
+	floatval := number.Value().(float64)
+	if floatval <= 0 {
+		return PosZero, nil
+	}
+	if floatval >= 255 {
+		return NewNumber(255), nil
+	}
+
+	f := math.Floor(floatval)
+	if f+0.5 < floatval {
+		return NewNumber(floatval + 1), nil
+	}
+	if floatval < f+0.5 {
+		return NewNumber(f), nil
+	}
+
+	// f == floatval, also f is an integer because of math.Floor
+	if int64(f)%2 != 0 {
+		return NewNumber(f + 1), nil
+	}
+	return NewNumber(f), nil
 }
 
 func ToString(arg Value) String {
