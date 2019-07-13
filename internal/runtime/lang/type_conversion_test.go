@@ -5,8 +5,8 @@ import (
 	"testing"
 	"testing/quick"
 
-	"github.com/stretchr/testify/require"
 	"github.com/gojisvm/gojis/internal/runtime/errors"
+	"github.com/stretchr/testify/require"
 )
 
 type unknownType struct{}
@@ -44,37 +44,37 @@ func TestToIntegerUnhandledType(t *testing.T) {
 
 func TestToInt32UnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToInt32(&unknownType{})
+	_, _ = ToInt32(&unknownType{})
 }
 
 func TestToUint32UnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToUint32(&unknownType{})
+	_, _ = ToUint32(&unknownType{})
 }
 
 func TestToInt16UnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToInt16(&unknownType{})
+	_, _ = ToInt16(&unknownType{})
 }
 
 func TestToUint16UnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToUint16(&unknownType{})
+	_, _ = ToUint16(&unknownType{})
 }
 
 func TestToInt8UnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToInt8(&unknownType{})
+	_, _ = ToInt8(&unknownType{})
 }
 
 func TestToUint8UnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToUint8(&unknownType{})
+	_, _ = ToUint8(&unknownType{})
 }
 
 func TestToUint8ClampUnhandledType(t *testing.T) {
 	defer requirePanic(t)
-	_ = ToUint8Clamp(&unknownType{})
+	_, _ = ToUint8Clamp(&unknownType{})
 }
 
 func TestToBoolean(t *testing.T) {
