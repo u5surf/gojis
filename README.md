@@ -21,12 +21,19 @@ go get -u github.com/gojisvm/gojis
 ```
 and start using it with
 ```go
-// FIXME: design an API, this is just a draft how it COULD look like
+// FIXME: the API is in draft mode, this is subject to change at any time
 
 vm := gojis.NewVM()
 
-proc := vm.EvaluateFiles("./*.js")
-<-proc.Done()
+vm.SetFunction("greet", func(gojis.Args) {
+    vm.Eval(`console.log("Hello World!");`)
+})
+
+vm.Eval(`greet();`)
+/*
+    prints:
+    Hello World!
+*/
 ```
 
 For more documentation, please have a look at the [API documentation](https://gojisvm.github.io/api.html).
