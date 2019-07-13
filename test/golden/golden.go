@@ -48,7 +48,7 @@ func goldenUpdate(t *testing.T, goldenName string, actual []byte) {
 func goldenEqual(t *testing.T, goldenName string, actual []byte) {
 	require := require.New(t)
 
-	expected, err := ioutil.ReadFile(goldenName)
+	expected, err := ioutil.ReadFile(filepath.Clean(goldenName))
 	require.NoError(err, "Could not open file %v: %v", goldenName, err)
 	require.Equal(expected, actual, "Results differ, expected output was not equal to recorded output")
 }
