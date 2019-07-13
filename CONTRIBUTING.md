@@ -21,10 +21,6 @@ Alternatively, you can
 # Getting started
 
 * Checkout the repository
-* Run `make shorttest` or `go run -short ./...` to ensure everything works
-* To test everything, run `make test` (includes parser and conformance tests, takes a while)
-* To run the application, run one of
-    * `go run ./cmd`
-    * `make run` (does exactly what the line above does)
-    * `make start` (builds into `/bin`, then executes built file)
-* To build the application, run `make build`. It will build an executable file into `/bin`
+* Run `go test -short ./...` to ensure everything works
+* To test everything, run `go test -v ./...` (includes parser and conformance tests, takes a while)
+* To build the application, run `go build -o gojisvm .` and it will build the executable file `./gojisvm`
