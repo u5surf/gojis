@@ -4,6 +4,7 @@ import (
 	"github.com/gojisvm/gojis"
 )
 
+// #nosec
 func main() {
 	vm := gojis.NewVM()
 
