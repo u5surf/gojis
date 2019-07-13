@@ -24,6 +24,10 @@ func init() {
 	}
 }
 
+// Equal asserts that the actual bytes are exactly the same as the bytes in the golden
+// file with the given name.
+//
+// The golden file is located under 'testdata/' + name + '.golden'
 func Equal(t *testing.T, name string, actual []byte) {
 	goldenName := filepath.Join(folder, name+suffix)
 
