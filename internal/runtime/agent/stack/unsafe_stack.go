@@ -8,6 +8,10 @@ type unsafeStack struct {
 	s internalSliceStack
 }
 
+// NewUnsafeStack returns a new stack that uses a slice as underlying data
+// structure. An unsafe stack does not store elements, but pointers to the
+// elements. This allows for constant 4-byte elements in the slice. Do not use
+// it though.
 func NewUnsafeStack() Stack {
 	s := new(unsafeStack)
 	s.s = internalSliceStack{}
