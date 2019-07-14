@@ -54,7 +54,7 @@ type Agent struct {
 	Signifier          ID
 	IsLockFree1        bool
 	IsLockFree2        bool
-	CandidateExecution interface{} // TODO: Table 26, CandidateExecutionRecord
+	CandidateExecution interface{} // #37: Implement Table 26, CandidateExecutionRecord
 
 	ScriptJobs  *job.Queue
 	PromiseJobs *job.Queue
@@ -95,7 +95,7 @@ func (a *Agent) GetActiveScriptOrModule() lang.InternalValue {
 		return lang.Null
 	}
 
-	panic("TODO")
+	panic("#40: 8.3.1")
 }
 
 // ResolveBinding is used to determine the binding with the given name. The
@@ -109,7 +109,7 @@ func (a *Agent) ResolveBinding(name lang.String, env binding.Environment) *bindi
 	}
 
 	strict := false // FIXME: 8.3.2, Step 3
-	panic("TODO: 8.3.2, Step 3")
+	panic("#38: 8.3.2, Step 3")
 
 	return binding.GetIdentifierReference(env, name, strict)
 }
@@ -148,7 +148,7 @@ func (a *Agent) ResolveThisBinding() (lang.Value, errors.Error) {
 // running execution context.
 // GetNewTarget is specified in 8.3.5.
 func (a *Agent) GetNewTarget() lang.Value {
-	panic("TODO")
+	panic("#8: 8.3.5")
 }
 
 // GetGlobalObject returns the global object used by the running execution context.
@@ -170,7 +170,7 @@ func (a *Agent) EnqueueJob(q QueueKind, jobName string, arguments []lang.Value) 
 		ScriptOrModule: callerScriptOrModule,
 		HostDefined:    lang.Undefined,
 	}
-	// TODO: do we need to modify pending in any way?
+	// do we need to modify pending in any way?
 
 	switch q {
 	case QueueScript:
@@ -211,7 +211,7 @@ func (a *Agent) InitializeHostDefinedRealm() {
 	r.SetRealmGlobalObject(global, thisValue)
 
 	globalObj := r.SetDefaultGlobalBindings()
-	// TODO: Create any implementation-defined global object properties on globalObj.
+	// #39: Create any implementation-defined global object properties on globalObj.
 	_ = globalObj
 }
 
@@ -219,5 +219,5 @@ func (a *Agent) InitializeHostDefinedRealm() {
 func (a *Agent) RunJobs() {
 	a.InitializeHostDefinedRealm()
 
-	panic("TODO")
+	panic("#9: 8.6")
 }

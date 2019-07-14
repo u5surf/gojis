@@ -48,7 +48,7 @@ func NewObjectEnvironment(outer Environment, obj *lang.Object) *ObjectEnvironmen
 func NewFunctionEnvironment(outer Environment, f lang.Value) *FunctionEnvironment {
 	lang.EnsureTypeOneOf(f, lang.TypeObject, lang.TypeUndefined)
 
-	panic("TODO: 8.1.2.4 NewFunctionEnvironment")
+	panic("#42: 8.1.2.4 NewFunctionEnvironment")
 }
 
 // NewGlobalEnvironment creates a new global environment with the given global object and

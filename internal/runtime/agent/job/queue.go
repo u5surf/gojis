@@ -2,7 +2,7 @@ package job
 
 const (
 	// QueueBuffer is the buffer size that all job queues are using.
-	QueueBuffer = 10 // TODO: evaluate what could be a better value
+	QueueBuffer = 10
 )
 
 // Queue represents a JobQueue as specified in 8.4.

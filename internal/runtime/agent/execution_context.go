@@ -21,5 +21,5 @@ type ExecutionContext struct {
 	LexicalEnvironment  binding.Environment
 	VariableEnvironment binding.Environment
 
-	Generator interface{} // TODO: Table 23, GeneratorObject
+	Generator interface{} // #41: Table 23, GeneratorObject
 }

@@ -51,7 +51,7 @@ func (e *ObjectEnvironment) IsModuleEnvironment() bool {
 // name is the value of the argument n.
 // HasBinding is specified in 8.1.1.2.1.
 func (e *ObjectEnvironment) HasBinding(n lang.String) bool {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // CreateMutableBinding creates in an Environment Record's associated binding
@@ -60,7 +60,7 @@ func (e *ObjectEnvironment) HasBinding(n lang.String) bool {
 // [[Configurable]] attribute is set to true; otherwise it is set to false.
 // CreateMutableBinding is specified in 8.1.1.2.2.
 func (e *ObjectEnvironment) CreateMutableBinding(n lang.String, deletable bool) errors.Error {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // CreateImmutableBinding is not described by the specification and will panic
@@ -76,7 +76,7 @@ func (e *ObjectEnvironment) CreateImmutableBinding(n lang.String, strict bool) e
 // already exist.
 // InitializeBinding is specified in 8.1.1.2.4.
 func (e *ObjectEnvironment) InitializeBinding(n lang.String, val lang.Value) errors.Error {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // SetMutableBinding attempts to set the value of the Environment Record's
@@ -86,7 +86,7 @@ func (e *ObjectEnvironment) InitializeBinding(n lang.String, val lang.Value) err
 // the value of strict.
 // SetMutableBinding is specified in 8.1.1.2.5.
 func (e *ObjectEnvironment) SetMutableBinding(n lang.String, val lang.Value, strict bool) errors.Error {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // GetThisBinding is not specified for ObjectEnvironment.
@@ -100,14 +100,14 @@ func (e *ObjectEnvironment) GetThisBinding() (lang.Value, errors.Error) {
 // the strict argument.
 // GetBindingValue is specified in 8.1.1.2.6.
 func (e *ObjectEnvironment) GetBindingValue(n lang.String, strict bool) (lang.Value, errors.Error) {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // DeleteBinding can only delete bindings that correspond to properties of the
 // environment object whose [[Configurable]] attribute have the value true.
 // DeleteBinding is specified in 8.1.1.2.7.
 func (e *ObjectEnvironment) DeleteBinding(n lang.String) bool {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // HasThisBinding returns false.
@@ -126,7 +126,7 @@ func (e *ObjectEnvironment) HasSuperBinding() bool {
 // withEnvironment flag is true.
 // WithBaseObject is specified in 8.1.1.2.10.
 func (e *ObjectEnvironment) WithBaseObject() lang.Value {
-	panic("TODO")
+	panic("#11: 8.1.1.2")
 }
 
 // Type returns TypeInternal.

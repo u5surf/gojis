@@ -7,7 +7,7 @@ type linkedStack struct {
 
 type node struct {
 	value interface{}
-	prev  *node // TODO: use a sync.Pool for the nodes?
+	prev  *node
 }
 
 // NewLinkedStack returns a new stack, using a single linked list as underlying

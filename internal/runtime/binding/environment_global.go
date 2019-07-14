@@ -85,7 +85,7 @@ func (e *GlobalEnvironment) HasRestrictedGlobalProperty(n lang.String) bool {
 		return false
 	}
 
-	panic("TODO: properties")
+	panic("#43: 8.1.1.4.14")
 }
 
 // CanDeclareGlobalVar determines if a corresponding CreateGlobalVarBinding call
