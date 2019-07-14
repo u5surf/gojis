@@ -38,5 +38,5 @@ before_script:
 script:
   - gosec -quiet ./... # run vulnerability analysis
   - gotestsum --no-summary skipped --raw-command go test -json -race -v -coverprofile=coverage.txt -covermode=atomic -short ./... # -short flag will be removed when parser is done
-  - godacov -t $CODACY_TOKEN -r ./coverage.out -c $TRAVIS_COMMIT
+  - godacov -t $CODACY_TOKEN -r ./coverage.txt -c $TRAVIS_COMMIT
   - sonar-scanner
