@@ -59,11 +59,10 @@ func (a *Args) Get(index int) *Object {
 	return a.o[index]
 }
 
-// Len returns the amount of arguments.
-// For example, if 3 arguments were passed (indices 0, 1 and 2),
-// this method will return 3.
-// Please note, that args.Get(3) and higher will return Undefined,
-// whereas args.Get(0), 1 and 2 will return the respective arguments.
+// Len returns the amount of arguments. For example, if 3 arguments were passed
+// (indices 0, 1 and 2), this method will return 3. Please note, that in this
+// example, args.Get(3) and higher will return Undefined, whereas args.Get(0), 1
+// and 2 will return the respective arguments.
 func (a *Args) Len() int {
 	return len(a.o)
 }
