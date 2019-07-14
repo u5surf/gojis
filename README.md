@@ -24,8 +24,9 @@ and start using it with
 
 vm := gojis.NewVM()
 
-vm.SetFunction("greet", func(gojis.Args) {
+vm.SetFunction("greet", func(gojis.Args) gojis.Object {
     vm.Eval(`console.log("Hello World!");`)
+    return nil
 })
 
 vm.Eval(`greet();`)
