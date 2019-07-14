@@ -5,6 +5,7 @@ import (
 	"github.com/gojisvm/gojis/internal/runtime/realm"
 )
 
+// PendingJob represents a pending job that is to be executed by an agent.
 type PendingJob struct {
 	Job            string
 	Arguments      []lang.Value
