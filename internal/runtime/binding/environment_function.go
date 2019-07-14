@@ -47,6 +47,8 @@ type FunctionEnvironment struct {
 	NewTarget lang.Value // Object or Undefined
 }
 
+// BindThisValue sets ThisValue and records that it has been initialized.
+// BindThisValue is specified in 8.1.1.3.1.
 func (e *FunctionEnvironment) BindThisValue(val lang.Value) (lang.Value, errors.Error) {
 	if e.ThisBindingStatus == StatusInitialized {
 		return nil, errors.NewReferenceError("'This' has already been initialized")
@@ -57,10 +59,14 @@ func (e *FunctionEnvironment) BindThisValue(val lang.Value) (lang.Value, errors.
 	return val, nil
 }
 
+// HasThisBinding returns true if and only if ThisBindingStatus is not StatusLexical.
+// HasThisBinding is specified in 8.1.1.3.2.
 func (e *FunctionEnvironment) HasThisBinding() bool {
 	return e.ThisBindingStatus != StatusLexical
 }
 
+// HasSuperBinding returns true if and only if this HomeObject is not Undefined.
+// HasSuperBinding is specified in 8.1.1.3.3.
 func (e *FunctionEnvironment) HasSuperBinding() bool {
 	if e.ThisBindingStatus == StatusLexical {
 		return false
@@ -69,6 +75,9 @@ func (e *FunctionEnvironment) HasSuperBinding() bool {
 	return e.HomeObject != lang.Undefined
 }
 
+// GetThisBinding returns the ThisValue of this environment.
+// If it has not been initialized yet, a reference error will be returned.
+// GetThisBinding is specified in 8.1.1.3.4.
 func (e *FunctionEnvironment) GetThisBinding() (lang.Value, errors.Error) {
 	if e.ThisBindingStatus == StatusUninitialized {
 		return nil, errors.NewReferenceError("'This' has not been initialized yet")
@@ -77,6 +86,8 @@ func (e *FunctionEnvironment) GetThisBinding() (lang.Value, errors.Error) {
 	return e.ThisValue, nil
 }
 
+// GetSuperBase returns the prototype object of the super binding's value.
+// GetSuperBase is specified in 8.1.1.3.5.
 func (e *FunctionEnvironment) GetSuperBase() lang.Value {
 	if e.HomeObject == lang.Undefined {
 		return lang.Undefined
