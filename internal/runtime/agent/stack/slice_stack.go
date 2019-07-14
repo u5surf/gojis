@@ -4,6 +4,7 @@ type sliceStack struct {
 	s internalSliceStack
 }
 
+// NewSliceStack returns a new stack that uses a slice as underlying data structure.
 func NewSliceStack() Stack {
 	s := new(sliceStack)
 	s.s = internalSliceStack{}

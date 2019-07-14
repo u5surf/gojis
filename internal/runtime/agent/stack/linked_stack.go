@@ -10,7 +10,9 @@ type node struct {
 	prev  *node // TODO: use a sync.Pool for the nodes?
 }
 
-func NewLinkedStack() *linkedStack {
+// NewLinkedStack returns a new stack, using a single linked list as underlying
+// data structure.
+func NewLinkedStack() Stack {
 	return &linkedStack{nil, 0}
 }
 
