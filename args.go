@@ -7,15 +7,15 @@ package gojis
 // If 3 arguments are passed to the function, args.Get(5) will
 // return Undefined, NOT nil.
 type Args struct {
-	o []*Object
+	o []Object
 }
 
 // Get returns the argument at the given index.
 // If there is no such argument, Undefined will be returned.
 // This method never returns nil.
-func (a *Args) Get(index int) *Object {
+func (a *Args) Get(index int) Object {
 	if index >= len(a.o) {
-		return undefined
+		return Undefined
 	}
 	return a.o[index]
 }

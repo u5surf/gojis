@@ -8,7 +8,7 @@ import (
 func main() {
 	vm := gojis.NewVM()
 
-	vm.SetFunction("greet", func(gojis.Args) {
+	vm.SetFunction("greet", func(gojis.Args) gojis.Object {
 		vm.Eval(`console.log("Hello World!");`)
 
 		// or
@@ -25,6 +25,8 @@ func main() {
 		consoleLog := console.Lookup("log")
 		consoleLog.CallWithArgs("Hello", "World!")
 		consoleLog.CallWithArgs("I am reusable!")
+
+		return nil
 	})
 
 	vm.Eval(`greet();`)
@@ -40,7 +42,7 @@ func main() {
 	// consume alerts somewhere else, like:
 	// go drainAlerts(alerts)
 
-	vm.SetFunction("alert", func(args gojis.Args) {
+	vm.SetFunction("alert", func(args gojis.Args) gojis.Object {
 		val := args.Get(0)
 		if val.IsUndefined() {
 			panic("No argument provided.")
@@ -49,5 +51,7 @@ func main() {
 			panic("Argument has to be a string")
 		}
 		alerts <- val.Value().(string)
+
+		return nil
 	})
 }
