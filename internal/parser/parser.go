@@ -11,12 +11,12 @@ import (
 //go:generate antlr -Dlanguage=Go -visitor ECMAScript.g4
 
 type Parser struct {
-	ast *Ast
+	ast interface{}
 }
 
 func New() *Parser {
 	p := new(Parser)
-	p.ast = NewEmptyAst()
+	// p.ast = NewEmptyAst()
 	return p
 }
 
@@ -36,29 +36,31 @@ func (p *Parser) ParseFile(path string) error {
 		return fmt.Errorf("Error while loading file: %v", err)
 	}
 
-	lexer := NewECMAScriptLexer(input)
-	lexer.RemoveErrorListeners()
+	_ = input
 
-	stream := antlr.NewCommonTokenStream(lexer, 0)
-	par := NewECMAScriptParser(stream)
-	par.RemoveErrorListeners()
+	// lexer := NewECMAScriptLexer(input)
+	// lexer.RemoveErrorListeners()
 
-	errorCollector := NewCollectingErrorListener()
-	par.AddErrorListener(errorCollector)
-	par.BuildParseTrees = true
+	// stream := antlr.NewCommonTokenStream(lexer, 0)
+	// par := NewECMAScriptParser(stream)
+	// par.RemoveErrorListeners()
 
-	tree := par.Program()
-	if errs, hasErrors := errorCollector.Errors(); hasErrors {
-		return NewParserError(path, errs...)
-	}
+	// errorCollector := NewCollectingErrorListener()
+	// par.AddErrorListener(errorCollector)
+	// par.BuildParseTrees = true
 
-	// only append root if no errors occurred while parsing
-	p.ast.AddRoot(path, tree)
+	// tree := par.Program()
+	// if errs, hasErrors := errorCollector.Errors(); hasErrors {
+	// 	return NewParserError(path, errs...)
+	// }
 
-	return nil
+	// // only append root if no errors occurred while parsing
+	// p.ast.AddRoot(path, tree)
+
+	panic("TODO")
 }
 
-func (p *Parser) Ast() *Ast {
+func (p *Parser) Ast() interface{} {
 	return p.ast
 }
 
